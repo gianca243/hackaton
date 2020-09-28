@@ -2,27 +2,35 @@ let boton = document.getElementById("bton")
 let name = document.getElementById("nickName")
 let password = document.getElementById('password')
 const form =document.getElementById('form')
-let crud = []
+let crud = {}
+const historial = JSON.parse(localStorage.getItem('crud'))
+if (historial) {
+  crud = historial
+}
+
 form.addEventListener('submit',(e)=>{
-  let newU = 0
-  if( crud.length == 0 ){
-    crud[0]=name.value+password.value
-  } else {
-    for(let i = 0 ; i<crud.length ; i++){
-      if(crud[i]==(name.value+password.value)){
-        newU = 1 
+  e.preventDefault()
+  if (name.value != '') {
+    if (password.value != '') {
+      if(!crud[name.value+" "+password.value]){
+        crud[name.value+" "+password.value]={
+          nombre:name.value,
+          apellido:password.value,
+          puntaje:0
+        }    
+      } else {
+        swal({
+          title: "Usuario ya existe!",
+          text: "Crea otro usuario!",
+          icon: "warning",
+        });
       }
     }
-    if (newU == 0) {
-      crud = crud.push(name.value+password.value)
-    }
   }
-  
-  e.preventDefault()
-  localStorage.setItem("crud", crud)
+  localStorage.setItem("crud", JSON.stringify(crud))
   console.log(localStorage.getItem('crud'));
   localStorage.setItem("nombre", name.value)
   localStorage.setItem("apellido", password.value)
-  // window.location = "./assets/pages/juego.html"
+  window.location = "./assets/pages/juego.html"
 })
 

@@ -1,7 +1,8 @@
 const nombre = localStorage.getItem('nombre')
+const apellido = localStorage.getItem('apellido')
 let nombreLabel = document.getElementById('nameU')
 if(nombre != null){
-  nombreLabel.innerText=nombre
+  nombreLabel.innerText=nombre+" "+apellido
 }
 let puntos = document.getElementById('puntos')
 let labelZ = document.getElementById('usuario1')
@@ -94,5 +95,6 @@ function exito(a,b,c,d){
 }
 
 function puntosG(p){
-  localStorage.setItem("puntos",p)
+  usuarios = JSON.parse(localStorage.getItem('crud'))
+  // localStorage.setItem("puntos",p)
 }
